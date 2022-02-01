@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lorem Ipsum Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="content-container">
+      <section class="title">Lorem Ipsum Generator</section>
+      <form onsubmit="submitForm()">
+        <section class="top-row row">
+          <input
+            type="number"
+            name="number"
+            value="5"
+            id="number"
+            min="1"
+            max="100000"
+          />
+          <div class="options">
+            <section class="option">
+              <input
+                type="radio"
+                name="type"
+                value="parahraphs"
+                id="parahraphs"
+                checked
+              />
+              <label for="paragraphs">Paragraph(s)</label>
+            </section>
+            <section class="option">
+              <input type="radio" name="type" value="words" id="words" />
+              <label for="paragraphs">Word(s)</label>
+            </section>
+            <section class="option">
+              <input type="radio" name="type" value="sentences" id="bytes" />
+              <label for="paragraphs">Sentence(s)</label>
+            </section>
+          </div>
+        </section>
+        <section class="second-row row">
+          <input
+            type="checkbox"
+            name="startsWithLipsim"
+            id="startsWithLipsum"
+            checked
+          />
+          <label for="startsWithLipsum">Starts with "Lorem ipsum..."</label>
+          <br />
+          <button type="submit">Generate Lorem Ipsum</button>
+        </section>
+      </form>
+      <div class="lipsum-result"></div>
+    </div>
+    <footer>
+      Copyright &copy;
+      <script>
+        document.write(new Date().getFullYear());
+        //prettier-ignore
+      </script>. All rights reserved
+    </footer>
+  </body>
+  <script>
+    const lipsumDisplayArea = document.querySelector(".lipsum-result");
+
+    function populateLipsum(paragraphs) {
+      lipsumDisplayArea.innerHTML = "";
+      var innerHTML = "";
+      paragraphs.forEach((paragraph) => {
+        innerHTML += `<p>${paragraph}</p>`;
+      });
+      lipsumDisplayArea.innerHTML = innerHTML;
+    }
+
+    async function submitForm(e) {
+      event.preventDefault();
+      const paragraphs = await fetchLipsum();
+      populateLipsum(paragraphs);
+      console.log(paragraphs);
+    }
+
+    async function fetchLipsum() {
+      const bodyData = {
+        number: document.querySelector("#number").value,
+        type: document.querySelector('input[name="type"]:checked').value,
+        startsWithLipsum: document.querySelector("#startsWithLipsum").checked,
+      };
+
+      const response = await fetch("/generate", {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(bodyData),
+      });
+
+      if (response.status !== 200) {
+        console.error(response);
+      }
+
+      const paragraphs = await response.json();
+      return [...paragraphs.paragraphs];
+    }
+  </script>
+</html>

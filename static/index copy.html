@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lipsim - Értelmetlen magyar szöveg</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="content-container">
+      <section class="title">Lorem Ipsum Generator</section>
+      <form action="/result" method="post">
+        <section class="top-row row">
+          <input type="number" name="number" value="5" />
+          <input
+            type="radio"
+            name="type"
+            value="parahraphs"
+            id="parahraphs"
+            checked
+          />
+          <label for="paragraphs">Paragraph(s)</label>
+          <input type="radio" name="type" value="words" id="words" />
+          <label for="paragraphs">Word(s)</label>
+          <input type="radio" name="type" value="sentences" id="bytes" />
+          <label for="paragraphs">Sentence(s)</label>
+        </section>
+        <section class="second-row row">
+          <input
+            type="checkbox"
+            name="startsWithLipsim"
+            id="startsWithLipsim"
+            checked
+          />
+          <label for="startsWithLipsim">Starts with "Lorem ipsum..."</label>
+          <button type="submit">Submit</button>
+        </section>
+      </form>
+    </div>
+  </body>
+</html>
