@@ -4,12 +4,11 @@ const {
   comma,
 } = require("../settings");
 
-const fs = require("fs");
 var wordList;
 var wordListLength;
 
 function loadWordsFile(path) {
-  // read the file into an array of words.
+  // read the array of words stored in utils
   wordList = require("./dictionary");
   wordListLength = wordList.length;
   console.log(`Loaded ${wordListLength} words from the dictionary...`);
