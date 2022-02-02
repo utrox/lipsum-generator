@@ -10,7 +10,7 @@
   <body>
     <div class="content-container">
       <section class="title">Lorem Ipsum Generator</section>
-      <form onsubmit="submitForm()">
+      <form>
         <section class="top-row row">
           <input
             type="number"
@@ -55,54 +55,7 @@
       </form>
       <div class="lipsum-result"></div>
     </div>
-    <footer>
-      Copyright &copy;
-      <script>
-        document.write(new Date().getFullYear());
-        //prettier-ignore
-      </script>. All rights reserved
-    </footer>
+    <footer></footer>
   </body>
-  <script>
-    const lipsumDisplayArea = document.querySelector(".lipsum-result");
-
-    function populateLipsum(paragraphs) {
-      lipsumDisplayArea.innerHTML = "";
-      var innerHTML = "";
-      paragraphs.forEach((paragraph) => {
-        innerHTML += `<p>${paragraph}</p>`;
-      });
-      lipsumDisplayArea.innerHTML = innerHTML;
-    }
-
-    async function submitForm(e) {
-      event.preventDefault();
-      const paragraphs = await fetchLipsum();
-      populateLipsum(paragraphs);
-      console.log(paragraphs);
-    }
-
-    async function fetchLipsum() {
-      const bodyData = {
-        number: document.querySelector("#number").value,
-        type: document.querySelector('input[name="type"]:checked').value,
-        startsWithLipsum: document.querySelector("#startsWithLipsum").checked,
-      };
-
-      const response = await fetch("/generate", {
-        headers: {
-          "Content-type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(bodyData),
-      });
-
-      if (response.status !== 200) {
-        console.error(response);
-      }
-
-      const paragraphs = await response.json();
-      return [...paragraphs.paragraphs];
-    }
-  </script>
+  <script src="form-handler.js"></script>
 </html>

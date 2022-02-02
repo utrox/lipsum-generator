@@ -1,6 +1,12 @@
 const express = require("express");
 const res = require("express/lib/response");
 const app = express();
+const port = process.env.PORT || 5000;
+
+// security packages
+const rateLimiter = require("express-rate-limit");
+const helmet = require("helmet");
+const xss = require("xss-clean");
 
 // import generator functions.
 const {
@@ -15,12 +21,23 @@ const {
 loadWordsFile("./static/text.txt");
 const acceptedTypes = ["pharagraphs", "words", "sentences"];
 
+// security middlewares
+app.use(
+  rateLimiter({
+    windowMs: 5 * 60 * 1000,
+    max: 20,
+  })
+);
+app.use(helmet());
+app.use(xss());
+
 // middlewares
 app.use(express.static("./static"));
 app.use(express.urlencoded());
 app.use(express.json());
 
 app.post("/generate", async (req, res) => {
+  console.log(req.body);
   // add default values if the request is empty
   var number = +req.body.number || 5;
   var type = req.body.type || "paragraphs";
@@ -51,6 +68,6 @@ app.post("/generate", async (req, res) => {
   res.json({ paragraphs: txt });
 });
 
-app.listen(5000, () => {
-  console.log("listening on port 5000...");
+app.listen(port, () => {
+  console.log(`listening on port ${port}...`);
 });

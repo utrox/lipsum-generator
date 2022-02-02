@@ -1,3 +1,4 @@
 node_modules/*
 latin.txt
 dict_parser.py
+static/text.txt

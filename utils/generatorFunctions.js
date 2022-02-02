@@ -10,14 +10,9 @@ var wordListLength;
 
 function loadWordsFile(path) {
   // read the file into an array of words.
-  fs.readFile(path, "utf8", async (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    wordList = data.split("\r\n");
-    wordListLength = wordList.length;
-  });
+  wordList = require("./dictionary");
+  wordListLength = wordList.length;
+  console.log(`Loaded ${wordListLength} words from the dictionary...`);
 }
 
 function generateRandomBtw(min, max) {
