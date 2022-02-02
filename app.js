@@ -37,7 +37,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 app.post("/generate", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   // add default values if the request is empty
   var number = +req.body.number || 5;
   var type = req.body.type || "paragraphs";
