@@ -1,3 +1,4 @@
+// Just an array of words. Scraped from a dictionary.
 const words = [
   "abbas",
   "abbatis",
