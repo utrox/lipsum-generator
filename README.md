@@ -16,3 +16,6 @@ On the index page of the website, the user can set the parameters of the text th
 - Vanilla JavaScript
 - Node.js (Express framework)
 - Python (for scraping and formatting dictionary.)
+
+## TODO
+- fix footer copyright symbol
